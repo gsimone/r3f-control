@@ -15,10 +15,11 @@ function App() {
         style={{
           background: "#121212",
         }}
+        gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
         concurrent
       >
         
-          <Effects />
+        <Effects />
         <Suspense fallback={<Html center><span className="loading">Loading.</span></Html>}>
           <Scene />
           <Html center>
@@ -26,13 +27,10 @@ function App() {
               TAKE CONTROL
             </div>
           </Html>
-          </Suspense>
-        </Canvas>
+        </Suspense>
+      </Canvas>
 
-      {window.location.search.includes("ctrl") && <div className="controls">
-        <Controls />
-      </div>}
-
+      {window.location.search.includes("ctrl") && <div className="controls"> <Controls /> </div>}
       
     </>
   );

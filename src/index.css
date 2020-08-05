@@ -32,7 +32,7 @@ body {
 }
 
 .title {
-  font-size: 110px;
+  font-size: clamp(1rem, 10vw, 110px);
   width: 100vw;
   text-align: center;
   word-spacing: .23em;
