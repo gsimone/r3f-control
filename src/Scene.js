@@ -46,11 +46,9 @@ function Frame({ depth = .3, color = "#333", ...props}) {
 
   return (
       <Extrude castShadow receiveShadow args={[shape, extrudeSettings]} {...props}>
-        {/* <meshPhysicalMaterial reflectivity={1} attach="material" color={color }  /> */}
         <meshPhysicalMaterial 
-          color="#000"
-          reflectivity={.1}
-          roughness={.9} 
+          color="#999"
+          roughness={.7} 
         />
       </Extrude>
   )
@@ -115,18 +113,16 @@ function Scene() {
     <>
       <Lights />
       
-      <Frame depth={14} position={[0, .3, -10]}  scale={[.53, 1, 1]} />
-      
-      {[...(new Array(40).fill())].map((_, i) => {
+      {[...(new Array(60).fill())].map((_, i) => {
 
         const _i = i + 6
         const j = i
 
         return (<Frame 
           key={i} 
-          depth={0.3} 
+          depth={0.1} 
           scale={[.5, 1, 3]} 
-          position={[0, -i * 0.01, - i * 0.6]} 
+          position={[0, -i * 0.01, - i * 0.5]} 
           rotation-z={-(theta / 10000) * -(_i*_i)} 
         />)})}
 

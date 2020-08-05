@@ -7,8 +7,8 @@ function Lights() {
 
     const $dirLight = useRef()
 
-    const color = useControl('lights color', { type: "color", value: "#E4FFFF"})
-    const fog = useControl('fog color', { type: "color", value: "#FFFFFF"})
+    const color = useControl('lights color', { type: "color", value: "#ff0000"})
+    const fog = useControl('fog color', { type: "color", value: "#ff0000"})
   
     return (
       <>
@@ -28,9 +28,9 @@ function Lights() {
           color={color} 
           position={[0, 1, -10]} 
           intensity={0.3}
-        />
 
-        <directionalLight position={[0, 0, 1]} intensity={.4} />
+        />
+        <directionalLight position={[0, 0, 0]} intensity={.1} />
       </>
     )
 

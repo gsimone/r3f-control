@@ -6,7 +6,7 @@ import {
   Bloom,
   Noise,
   Vignette,
-  SSAO, SMAA
+  SSAO, SMAA, ColorAverage, Sepia, HueSaturation
 } from "react-postprocessing";
 import { useResource, useThree } from 'react-three-fiber'
  
@@ -43,7 +43,7 @@ export const GodRays = forwardRef((props, ref) => {
 
 const Sun = forwardRef(function Sun(props, forwardRef) {
 
-  const sunColor = useControl("sun color", {type: "color", value: "#60EFE7"})
+  const sunColor = useControl("sun color", {type: "color", value: "#FF0000"})
 
   return (
     <Circle args={[10, 10]} ref={forwardRef} position={[0, 0, -16]}>
@@ -55,23 +55,25 @@ const Sun = forwardRef(function Sun(props, forwardRef) {
 
 function Effects() {
   const [$sun, sun] = useResource()
+
+  const hue = useControl("Hue", {value: 3.11, min: 0, max: Math.PI * 2, type: "number" })
+  const saturation = useControl("saturation", {value: 2.07, min: 0, max: Math.PI * 2, type: "number" })
   
   return (
     <Suspense fallback={null}>
       <Sun ref={$sun} />
 
       {sun && <EffectComposer>
-        <ChromaticAberration
-          blendFunction={BlendFunction.NORMAL} // blend mode
-          offset={[0.001, 0.001]} // color offset
-        />
         <GodRays sun={$sun} />
+
         <Noise
-          opacity={0.13}
+          opacity={0.2}
           premultiply // enables or disables noise premultiplication
           blendFunction={BlendFunction.ADD} // blend mode
         />
+        <HueSaturation hue={hue} saturation={saturation} />
         <Vignette />
+
       </EffectComposer>}
     </Suspense>
   );
