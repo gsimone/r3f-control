@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Icosahedron, Box, Extrude, useTextureLoader, useCubeTextureLoader } from "drei";
+import { Icosahedron, Box, Extrude, useTextureLoader, useCubeTextureLoader, OrbitControls } from "drei";
 
 import vert from "./shaders/default.vert";
 import frag from "./shaders/default.frag";
@@ -48,6 +48,7 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
   return (
     <a.group  {...props} rotation-z={rot}>
        <Extrude 
+      castShadow
        receiveShadow args={[shape, extrudeSettings]}>
         <meshPhysicalMaterial 
           color="#999"
@@ -126,9 +127,6 @@ function Frames() {
 
   return springs.map((spring, i) => {
    
-      const _i = i + 6
-      const j = i
-
       const { theta } = spring
 
       return (<Frame 
@@ -145,10 +143,9 @@ function Frames() {
 
 
 function Scene() {
-  const theta = useControl('rot angle', { type:"number", value: 40, min: 0, max: 1000 })
-  
   const [launching, setLaunching] = React.useState(false)
   
+  const orbitControls = useControl("Orbit Controls", {type: "boolean"})
   return (
     <>
       <Lights />
@@ -161,6 +158,8 @@ function Scene() {
       <Floater onClick={() => setLaunching(5)} isLaunching={launching === 5} position={[1, 0, 0]} rotation={[1, 4, 1]} />
       <Floater onClick={() => setLaunching(6)} isLaunching={launching === 6} position={[-1.2, 0, 1]} rotation={[1, 4, 1]} />
 
+      
+      {orbitControls && <OrbitControls />}
     </>
   );
 }

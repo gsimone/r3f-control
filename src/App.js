@@ -24,7 +24,9 @@ function App() {
         </Suspense>
         <Effects />
       </Canvas>
+      <div className="controls">
         <Controls />
+      </div>
     </>
   );
 }

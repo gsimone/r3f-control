@@ -21,3 +21,12 @@ body {
 *:focus {
   outline: none;
 }
+
+.controls {
+  opacity: .03;
+  transition: all .3s ease;
+}
+
+.controls:hover{
+  opacity: 1;
+}

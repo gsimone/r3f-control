@@ -57,7 +57,7 @@ function Effects() {
   const [$sun, sun] = useResource()
 
   const hue = useControl("Hue", {value: 3.11, min: 0, max: Math.PI * 2, type: "number" })
-  const saturation = useControl("saturation", {value: 2.07, min: 0, max: Math.PI * 2, type: "number" })
+  const saturation = useControl("saturation", {value: 2.05, min: 0, max: Math.PI * 2, type: "number" })
   
   return (
     <Suspense fallback={null}>
@@ -71,6 +71,12 @@ function Effects() {
           premultiply // enables or disables noise premultiplication
           blendFunction={BlendFunction.ADD} // blend mode
         />
+
+        <HueSaturation 
+          hue={hue}
+          saturation={saturation}
+        />
+
         <Vignette />
 
       </EffectComposer>}
