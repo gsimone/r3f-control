@@ -113,16 +113,16 @@ function Floater(props) {
 
 function Frames() {
 
-  const mass = useControl("mass", { group: "frames spring", type: "number", value: 3, min: 1, max: 10 })
-  const tension = useControl("tension", { group: "frames spring", type: "number", value: 200, min: 1, max: 1000 })
-  const friction = useControl("friction", { group: "frames spring", type: "number", value: 100, min: 1, max: 1000 })
+  const mass = useControl("mass", { group: "frames spring", type: "number", value: 100, min: 1, max: 10 })
+  const tension = useControl("tension", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
+  const friction = useControl("friction", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
 
   const [springs] = useSprings(40, i => ({
     loop: true,
     from: { theta: 0 },
     to: async next => {
       while (1) {
-        await next({ theta: -Math.PI/5 -(0.004 * (i * i)) });
+        await next({ theta: -Math.PI/2 -(0.004 * (i * i)) });
         await next({ theta: 0 });
       }
     },
