@@ -122,7 +122,7 @@ function Frames() {
     from: { theta: 0 },
     to: async next => {
       while (1) {
-        await next({ theta: -Math.PI/2 -(0.004 * (i * i)) });
+        await next({ theta: -Math.PI/2 -(0.004 * (i * i)) - (i * 0.06) });
         await next({ theta: 0 });
       }
     },
@@ -131,7 +131,7 @@ function Frames() {
       tension,
       friction
     },
-    delay: 1000 + (i * 12)
+    delay: (i) => 1000 + (i * 12) + i
   }));
 
   return springs.map((spring, i) => {

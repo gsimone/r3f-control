@@ -33,7 +33,7 @@ body {
 
 .title {
   font-size: 110px;
-  width: 100%;
+  width: 100vw;
   text-align: center;
   word-spacing: .23em;
   position: fixed;
@@ -41,7 +41,16 @@ body {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   color: white;
-  font-family: "inter"; 
+  font-family: "Inter", sans-serif; 
   font-weight: 900;
   pointer-events: none;
+}
+
+.loading {
+  font-family: "Inter", sans-serif;
+  color: white;
+  font-weight: 900;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
 }
