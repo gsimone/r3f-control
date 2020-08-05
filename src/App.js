@@ -19,14 +19,14 @@ function App() {
         concurrent
       >
         
-        <Suspense fallback={null}>
-        <Scene />
-        </Suspense>
-        <Effects />
-      </Canvas>
-      <div className="controls">
+        <Suspense fallback={"Loading."}>
+          <Scene />
+          </Suspense>
+          <Effects />
+        </Canvas>
+      {window.location.search.includes("ctrl") && <div className="controls">
         <Controls />
-      </div>
+      </div>}
 
       <div className="title">
         TAKE CONTROL
