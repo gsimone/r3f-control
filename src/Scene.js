@@ -150,6 +150,7 @@ function Scene() {
     <>
       <Lights />
       <Frames />
+      <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[1.2, -1, -3]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
       <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[-1, 1, -4]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
       <Floater onClick={() => setLaunching(1)} isLaunching={launching === 1} scale={[0.6, 0.6, 0.6]}  position={[.8, 0, -6]}  args={[1, 2, 1]} rotation={[.5, .3, .5]} />
       <Floater onClick={() => setLaunching(2)} isLaunching={launching === 2} position={[-1.5, .1, -6]} rotation={[-2, 3, 1]} />
