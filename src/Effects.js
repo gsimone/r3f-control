@@ -31,7 +31,7 @@ export const GodRays = forwardRef((props, ref) => {
 			decay: 0.92,
 			weight: 0.3,
 			exposure: 0.54,
-			samples: 60,
+			samples: 40,
 			clampMax: 1.0
     });
     
@@ -71,7 +71,6 @@ function Effects() {
           premultiply // enables or disables noise premultiplication
           blendFunction={BlendFunction.ADD} // blend mode
         />
-        <HueSaturation hue={hue} saturation={saturation} />
         <Vignette />
 
       </EffectComposer>}

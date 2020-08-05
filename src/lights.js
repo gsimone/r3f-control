@@ -22,13 +22,9 @@ function Lights() {
           castShadow 
           ref={$dirLight} color={color} position={[0, 0, -10]} />
         <pointLight 
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
-          castShadow
           color={color} 
           position={[0, 1, -10]} 
           intensity={0.3}
-
         />
         <directionalLight position={[0, 0, 0]} intensity={.1} />
       </>
