@@ -38,7 +38,9 @@ function Lights() {
           ref={$backLight} 
           position={[0, 1, 3]} 
           intensity={.4} 
-          distance={3} />
+          distance={4}
+          color="blue"  
+        />
 
         <directionalLight position={[0, 0, 0]} intensity={.1} />
       </>

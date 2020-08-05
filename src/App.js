@@ -27,6 +27,10 @@ function App() {
       <div className="controls">
         <Controls />
       </div>
+
+      <div className="title">
+        TAKE CONTROL
+      </div>
     </>
   );
 }

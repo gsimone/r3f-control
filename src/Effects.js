@@ -1,4 +1,4 @@
-import React, { Suspense, forwardRef, useMemo, useRef } from 'react'
+import React, { Suspense, forwardRef, useMemo, useRef, useEffect } from 'react'
 
 import {
   EffectComposer,
@@ -8,7 +8,7 @@ import {
   Vignette,
   SSAO, SMAA, ColorAverage, Sepia, HueSaturation
 } from "react-postprocessing";
-import { useResource, useThree } from 'react-three-fiber'
+import { useFrame, useResource, useThree } from 'react-three-fiber'
  
 import { GodRaysEffect, PixelationEffect, KernelSize, BlendFunction } from 'postprocessing'
 
@@ -30,13 +30,19 @@ export const GodRays = forwardRef((props, ref) => {
 			density: 0.96,
 			decay: 0.92,
 			weight: 0.3,
-			exposure: 0.54,
-			samples: 40,
-			clampMax: 1.0
+			exposure: 0.34,
+			samples: 60,
+			clampMax: 1
     });
     
     return godRaysEffect
   }, [camera, sun])
+
+  useFrame(({clock}) => {
+
+    effect.decay = Math.sin(clock.elapsedTime)
+
+  })
 
   return <primitive ref={ref} object={effect} dispose={null} />
 })

@@ -50,9 +50,10 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
        <Extrude 
       castShadow
        receiveShadow args={[shape, extrudeSettings]}>
-        <meshPhysicalMaterial 
+        <meshStandardMaterial 
           color="#999"
-          roughness={.7} 
+          roughness={.7}
+
         />
       </Extrude>
     </a.group>
@@ -112,15 +113,23 @@ function Floater(props) {
 
 function Frames() {
 
+  const mass = useControl("mass", { group: "frames spring", type: "number", value: 3, min: 1, max: 10 })
+  const tension = useControl("tension", { group: "frames spring", type: "number", value: 200, min: 1, max: 1000 })
+  const friction = useControl("friction", { group: "frames spring", type: "number", value: 100, min: 1, max: 1000 })
+
   const [springs] = useSprings(40, i => ({
+    loop: true,
     from: { theta: 0 },
-    to: {
-      theta: -Math.PI/5 -(0.005 * (i * i))
+    to: async next => {
+      while (1) {
+        await next({ theta: -Math.PI/5 -(0.004 * (i * i)) });
+        await next({ theta: 0 });
+      }
     },
     config: {
-      mass: 4,
-      tension: 200,
-      friction: 100
+      mass,
+      tension,
+      friction
     },
     delay: 1000 + (i * 12)
   }));
@@ -131,9 +140,9 @@ function Frames() {
 
       return (<Frame 
         key={i} 
-        depth={0.1} 
+        depth={.5} 
         scale={[.6, 1, 1]} 
-        position={[0, -i * 0.01, 3 - i * 0.5]} 
+        position={[0, 0, 3 - i * 0.5]} 
         rot={theta} 
       />)
     
