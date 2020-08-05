@@ -1,39 +1,11 @@
 import React, { useRef } from "react";
-import { useHelper } from "drei";
-import { SpotLightHelper } from "three";
-import { useControl } from "react-three-gui";
 
 function Lights() {
   const $dirLight = useRef();
   const $backLight = useRef();
 
-  // useHelper($backLight, SpotLightHelper)
-
-  const color = useControl("lights color", { type: "color", value: "#ff0000" });
-
-  const fog = useControl("fog color", {
-    type: "color",
-    group: "fog",
-    value: "#ff0000",
-  });
-  const fogNear = useControl("fog near", {
-    type: "number",
-    group: "fog",
-    value: 2.73,
-    min: 0,
-    max: 20,
-  });
-  const fogFar = useControl("fog near", {
-    type: "number",
-    group: "fog",
-    value: 16.27,
-    min: 0,
-    max: 20,
-  });
-
   return (
     <>
-      {/* <fog attach="fog" color={fog} near={fogNear} far={fogFar} /> */}
       <spotLight
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
@@ -42,11 +14,11 @@ function Lights() {
         penumbra={0.3}
         castShadow
         ref={$dirLight}
-        color={color}
+        color="#ff0000"
         position={[0, 0, -10]}
       />
 
-      <pointLight color={color} position={[0, 1, -10]} intensity={0.3} />
+      <pointLight color="#ff0000" position={[0, 1, -10]} intensity={0.3} />
 
       <spotLight
         ref={$backLight}

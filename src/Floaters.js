@@ -43,7 +43,7 @@ function Floater({ position, rotation, ...props }) {
 
   const handleClick = useCallback(
     function handleClick() {
-      api.applyImpulse([0, 0, -100], [0, 0, 0]);
+      api.applyImpulse([0, 0, -30], [0, 0, 0]);
     },
     [api]
   );
