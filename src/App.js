@@ -1,9 +1,10 @@
 import React, { Suspense } from "react";
 import { Canvas } from "react-three-fiber";
-import { Html } from "drei";
+import { Html, Stats } from "drei";
 import Effects from "./Effects";
 import Scene from "./Scene";
 import { Controls } from 'react-three-gui';
+import { Bloom } from "react-postprocessing";
 
 function App() {
   return (
@@ -18,15 +19,19 @@ function App() {
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
         concurrent
       >
+
+        <Stats />
+
+        <Bloom />
         
         <Effects />
         <Suspense fallback={<Html center><span className="loading">Loading.</span></Html>}>
           <Scene />
-          <Html center>
+          {/* <Html center>
             <div className="title">
               TAKE CONTROL
             </div>
-          </Html>
+          </Html> */}
         </Suspense>
       </Canvas>
 

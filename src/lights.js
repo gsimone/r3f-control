@@ -13,8 +13,8 @@ function Lights() {
     const color = useControl('lights color', { type: "color", value: "#ff0000"})
 
     const fog = useControl('fog color', { type: "color", group: "fog", value: "#ff0000"})
-    const fogNear = useControl("fog near", { type: "number", group:"fog", value: 9.06, min: 0, max: 20 })
-    const fogFar = useControl("fog near", { type: "number", group:"fog", value: 17, min: 0, max: 20 })
+    const fogNear = useControl("fog near", { type: "number", group:"fog", value: 2.73, min: 0, max: 20 })
+    const fogFar = useControl("fog near", { type: "number", group:"fog", value: 16.27, min: 0, max: 20 })
   
     return (
       <>

@@ -13,6 +13,7 @@ import { useMove } from 'react-use-gesture'
 
 import { useSpring, useSprings } from "@react-spring/core"
 import {  a } from '@react-spring/three'
+import Floaters from './Floaters';
 
 
 function Frame({ rot, depth = .3, color = "#333", ...props}) {
@@ -48,12 +49,13 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
   return (
     <a.group  {...props} rotation-z={rot}>
        <Extrude 
+       
       castShadow
        receiveShadow args={[shape, extrudeSettings]}>
         <meshStandardMaterial 
           color="#999"
           roughness={.7}
-
+          shadowSide={THREE.FrontSide}   
         />
       </Extrude>
     </a.group>
@@ -61,61 +63,7 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
   )
 }
 
-function Floater(props) {
-  const {isLaunching} = props
-
-  const randomDelay = useMemo(() => Math.random() * 100, [])
-  const direction = useMemo(() => new THREE.Vector3(Math.random(), Math.random(), Math.random()), [])
-  
-  const $ref = useRef()
-  useFrame(({clock}) => {
-    $ref.current.rotation.x += direction.x / 140
-    $ref.current.rotation.y += direction.y / 140
-    $ref.current.rotation.z += direction.z / 140
-
-    $ref.current.position.y += Math.sin(randomDelay + clock.getElapsedTime()/2) / 400
-  })
-
-  const envMap = useCubeTextureLoader(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: '/cube/' })
-  
-  const [spring, set] = useSpring(() => ({
-    loop: true,
-    position: props.position,
-    config: { mass: 10, friction: 100, tension: 1600 },
-  }))
-
-  useEffect(() => {
-
-    if (isLaunching) {
-      set({position: [
-        1, 
-        -.5,
-        1.4
-      ]})
-    } else {
-      set({ position: props.position })
-    }
-
-  }, [isLaunching, props.position, set])
-
-  return (
-    <a.mesh {...props} {...spring}  
-      castShadow
-      receiveShadow
-      ref={$ref} 
-      onPointerDown={props.handleClick}
-    >
-      <boxBufferGeometry args={[.5, 1, .5]} />
-      <meshStandardMaterial color="#333" reflectivity={1} roughness={0.7} envMap={envMap} />
-    </a.mesh>
-  )
-}
-
 function Frames() {
-
-  const mass = useControl("mass", { group: "frames spring", type: "number", value: 100, min: 1, max: 10 })
-  const tension = useControl("tension", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
-  const friction = useControl("friction", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
 
   const [springs] = useSprings(40, i => ({
     loop: true,
@@ -127,9 +75,9 @@ function Frames() {
       }
     },
     config: {
-      mass,
-      tension,
-      friction
+      mass: 100,
+      tension: 400,
+      friction: 400
     },
     delay: (i) => 1000 + (i * 12) + i
   }));
@@ -152,21 +100,13 @@ function Frames() {
 
 
 function Scene() {
-  const [launching, setLaunching] = React.useState(false)
   
-  const orbitControls = useControl("Orbit Controls", {type: "boolean"})
+  const orbitControls = useControl("Orbit Controls", {type: "boolean", value: true})
   return (
     <>
       <Lights />
       <Frames />
-      <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[-1, 1, -4]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
-      <Floater onClick={() => setLaunching(1)} isLaunching={launching === 1} scale={[0.6, 0.6, 0.6]}  position={[.8, 0, -6]}  args={[1, 2, 1]} rotation={[.5, .3, .5]} />
-      <Floater onClick={() => setLaunching(2)} isLaunching={launching === 2} position={[-1.5, .1, -6]} rotation={[-2, 3, 1]} />
-      <Floater onClick={() => setLaunching(3)} isLaunching={launching === 3} position={[0, 1, -2]} rotation={[-2, 3, 1]} />
-      <Floater onClick={() => setLaunching(4)} isLaunching={launching === 4} position={[0, -1, -4]} rotation={[-2, 3, 1]} />
-      <Floater onClick={() => setLaunching(5)} isLaunching={launching === 5} position={[1, 0, 0]} rotation={[1, 4, 1]} />
-      <Floater onClick={() => setLaunching(6)} isLaunching={launching === 6} position={[-1.2, 0, 1]} rotation={[1, 4, 1]} />
-
+      <Floaters />
       
       {orbitControls && <OrbitControls />}
     </>
