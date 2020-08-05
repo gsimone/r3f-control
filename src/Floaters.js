@@ -122,6 +122,7 @@ function Floaters() {
     <>
       <Physics
         gravity={[0, 0, 0]}
+        tolerance={0.001}
         defaultContactMaterial={{
           friction: 1,
           restitution: 0.5,
