@@ -33,7 +33,7 @@ function Lights() {
 
   return (
     <>
-      <fog attach="fog" color={fog} near={fogNear} far={fogFar} />
+      {/* <fog attach="fog" color={fog} near={fogNear} far={fogFar} /> */}
       <spotLight
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
