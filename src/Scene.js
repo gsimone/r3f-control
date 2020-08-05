@@ -44,7 +44,7 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
     <a.group  {...props} rotation-z={rot}>
        <Extrude args={[shape, extrudeSettings]}> 
         <meshStandardMaterial 
-          color="#666"
+          color="#999"
           roughness={.7}
           castShadow
           receiveShadow
