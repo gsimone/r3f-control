@@ -23,7 +23,6 @@ function App() {
         <Scene />
         </Suspense>
         <Effects />
-        <OrbitControls />
       </Canvas>
         <Controls />
     </>

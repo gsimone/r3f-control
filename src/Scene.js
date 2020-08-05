@@ -1,13 +1,18 @@
 import * as THREE from 'three'
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Icosahedron, Box, Extrude, useTextureLoader, useCubeTextureLoader } from "drei";
 
 import vert from "./shaders/default.vert";
 import frag from "./shaders/default.frag";
-import { useFrame } from "react-three-fiber";
+import { useFrame, useThree } from "react-three-fiber";
 import Lights from "./lights";
 import { Vector2 } from 'three';
 import { useControl } from 'react-three-gui';
+
+import { useMove } from 'react-use-gesture'
+
+import { useSpring } from "@react-spring/core"
+import {  a } from '@react-spring/three'
 
 
 function Frame({ depth = .3, color = "#333", ...props}) {
@@ -52,31 +57,65 @@ function Frame({ depth = .3, color = "#333", ...props}) {
 }
 
 function Floater(props) {
+  const {isLaunching} = props
+  const direction = useMemo(() => new THREE.Vector3(Math.random(), Math.random(), Math.random()), [])
+  
   const $ref = useRef()
-  useFrame(() => {
-    $ref.current.rotation.x += .01
-    $ref.current.rotation.y += .002
-    $ref.current.rotation.z += .003
+  useFrame(({clock}) => {
+    $ref.current.rotation.x += direction.x / 100
+    $ref.current.rotation.y += direction.y / 100
+    $ref.current.rotation.z += direction.z / 100
+
+    $ref.current.position.y += Math.sin(clock.getElapsedTime() * 2) / 400
   })
 
-  const bump = useTextureLoader('./bump.jpg')
   const envMap = useCubeTextureLoader(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: '/cube/' })
   
+  const { viewport } = useThree()
+  
+  const [spring, set] = useSpring(() => ({
+    loop: true,
+    position: props.position,
+    config: { mass: 10, friction: 100, tension: 1600 },
+  }))
+
+  useEffect(() => {
+
+    if (isLaunching) {
+      set({position: [
+        1, 
+        -.5,
+        1.4
+      ]})
+    } else {
+      set({ position: props.position })
+    }
+
+  }, [isLaunching, props.position, set])
+
   return (
-    <Box {...props} ref={$ref} castShadow>
+    <a.mesh {...props} {...spring}  
+      castShadow 
+      ref={$ref} 
+      onPointerDown={props.handleClick}
+    >
+      <boxBufferGeometry args={[.5, 1, .5]} />
       <meshStandardMaterial color="#333" reflectivity={1} roughness={0.7} envMap={envMap} />
-    </Box>
+    </a.mesh>
   )
 }
 
+
 function Scene() {
   const theta = useControl('rot angle', { type:"number", value: 40, min: 0, max: 1000 })
+  
+  const [launching, setLaunching] = React.useState(false)
   
   return (
     <>
       <Lights />
       
-      <Frame position={[0, 0, 0]} depth={14} position={[0, .3, -10]}  scale={[.53, 1, 1]} />
+      <Frame depth={14} position={[0, .3, -10]}  scale={[.53, 1, 1]} />
       
       {[...(new Array(40).fill())].map((_, i) => {
 
@@ -91,11 +130,11 @@ function Scene() {
           rotation-z={-(theta / 10000) * -(_i*_i)} 
         />)})}
 
-      <Floater scale={[.3,.3,.3]}  position={[-1, 1, -4]}  args={[1, 2, 1]} rotation-x={2} rotation-y={.3} rotation-z={.5} />
-      <Floater scale={[0.6, 0.6, 0.6]}  position={[.8, 0, -6]}  args={[1, 2, 1]} rotation-x={.5} rotation-y={.3} rotation-z={.5} />
-      <Floater args={[.5, 1, .5]} position={[-1.5, .1, -6]} rotation={[-2, 3, 1]} />
-      <Floater args={[.5, 1, .5]} position={[0, 1, -2]} rotation={[-2, 3, 1]} />
-      <Floater args={[.5, 1, .5]} position={[0, -1, -4]} rotation={[-2, 3, 1]} />
+      <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[-1, 1, -4]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
+      <Floater onClick={() => setLaunching(1)} isLaunching={launching === 1} scale={[0.6, 0.6, 0.6]}  position={[.8, 0, -6]}  args={[1, 2, 1]} rotation={[.5, .3, .5]} />
+      <Floater onClick={() => setLaunching(2)} isLaunching={launching === 2} args={[.5, 1, .5]} position={[-1.5, .1, -6]} rotation={[-2, 3, 1]} />
+      <Floater onClick={() => setLaunching(3)} isLaunching={launching === 3} args={[.5, 1, .5]} position={[0, 1, -2]} rotation={[-2, 3, 1]} />
+      <Floater onClick={() => setLaunching(4)} isLaunching={launching === 4} args={[.5, 1, .5]} position={[0, -1, -4]} rotation={[-2, 3, 1]} />
 
     </>
   );
