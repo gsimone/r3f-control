@@ -43,7 +43,7 @@ export const GodRays = forwardRef((props, ref) => {
 
 const Sun = forwardRef(function Sun(props, forwardRef) {
 
-  const sunColor = useControl("sun color", {type: "color", value: "#FFFFFF"})
+  const sunColor = useControl("sun color", {type: "color", value: "#60EFE7"})
 
   return (
     <Circle args={[10, 10]} ref={forwardRef} position={[0, 0, -16]}>

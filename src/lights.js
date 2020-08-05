@@ -7,12 +7,12 @@ function Lights() {
 
     const $dirLight = useRef()
 
-    const color = useControl('lights color', { type: "color", value: "#FFF0F0"})
-    const fog = useControl('fog color', { type: "color", value: "#E8F6FF"})
+    const color = useControl('lights color', { type: "color", value: "#E4FFFF"})
+    const fog = useControl('fog color', { type: "color", value: "#FFFFFF"})
   
     return (
       <>
-        <fog attach="fog" color={fog} near={4} far={16} />
+        <fog attach="fog" color={fog} near={5} far={16} />
         <spotLight 
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
