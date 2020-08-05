@@ -1,11 +1,13 @@
 import React, { Suspense } from "react";
 import { Canvas } from "react-three-fiber";
-import { Html } from "drei";
+import { Html, Stats } from "drei";
 import Effects from "./Effects";
 import Scene from "./Scene";
 import { Controls } from 'react-three-gui';
 
 function App() {
+  const showControls = window.location.search.includes("ctrl")
+  
   return (
     <>
       <Canvas
@@ -18,6 +20,8 @@ function App() {
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
         concurrent
       >
+
+        {showControls && <Stats />}
         
         <Effects />
         <Suspense fallback={<Html center><span className="loading">Loading.</span></Html>}>
@@ -30,7 +34,7 @@ function App() {
         </Suspense>
       </Canvas>
 
-      {window.location.search.includes("ctrl") && <div className="controls"> <Controls /> </div>}
+      {showControls && <div className="controls"> <Controls /> </div>}
       
     </>
   );

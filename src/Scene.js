@@ -1,15 +1,10 @@
 import * as THREE from 'three'
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Icosahedron, Box, Extrude, useTextureLoader, useCubeTextureLoader, OrbitControls } from "drei";
+import React, { useEffect, useMemo, useRef } from "react";
+import { Extrude, useCubeTextureLoader, OrbitControls } from "drei";
 
-import vert from "./shaders/default.vert";
-import frag from "./shaders/default.frag";
-import { useFrame, useThree } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import Lights from "./lights";
-import { Vector2 } from 'three';
 import { useControl } from 'react-three-gui';
-
-import { useMove } from 'react-use-gesture'
 
 import { useSpring, useSprings } from "@react-spring/core"
 import {  a } from '@react-spring/three'
@@ -19,10 +14,10 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
   const shape = useMemo(() => {
     //Create a frame shape..
     var frame = new THREE.Shape();
-    frame.moveTo(-12, -14);
-    frame.lineTo( 12, -14);
-    frame.lineTo( 12,  14);
-    frame.lineTo(-12,  14);
+    frame.moveTo(-8, -3);
+    frame.lineTo( 8, -3);
+    frame.lineTo( 8,  3);
+    frame.lineTo(-8,  3);
 
     //..with a hole:
     var hole = new THREE.Path();
@@ -47,13 +42,13 @@ function Frame({ rot, depth = .3, color = "#333", ...props}) {
 
   return (
     <a.group  {...props} rotation-z={rot}>
-       <Extrude 
-      castShadow
-       receiveShadow args={[shape, extrudeSettings]}>
+       <Extrude args={[shape, extrudeSettings]}> 
         <meshStandardMaterial 
-          color="#999"
+          color="#666"
           roughness={.7}
-
+          castShadow
+          receiveShadow
+          shadowSide={THREE.FrontSide}
         />
       </Extrude>
     </a.group>
@@ -113,10 +108,6 @@ function Floater(props) {
 
 function Frames() {
 
-  const mass = useControl("mass", { group: "frames spring", type: "number", value: 100, min: 1, max: 10 })
-  const tension = useControl("tension", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
-  const friction = useControl("friction", { group: "frames spring", type: "number", value: 400, min: 1, max: 1000 })
-
   const [springs] = useSprings(40, i => ({
     loop: true,
     from: { theta: 0 },
@@ -127,9 +118,9 @@ function Frames() {
       }
     },
     config: {
-      mass,
-      tension,
-      friction
+      mass: 100,
+      tension: 400,
+      friction: 400
     },
     delay: (i) => 1000 + (i * 12) + i
   }));
