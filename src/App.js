@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback } from "react";
+import React, { Suspense } from "react";
 import { Canvas } from "react-three-fiber";
 import { Html, Stats } from "drei";
 import Effects from "./Effects";
