@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Plane, useCubeTextureLoader } from "drei";
+import { useCubeTextureLoader } from "drei";
 import { a } from "@react-spring/three";
 import { Physics, useBox, usePlane } from "use-cannon";
 
@@ -29,7 +29,7 @@ function Floater({ position, rotation, ...props }) {
     rotation,
     onCollide: (e) => {
       const yAxis = e.contact.ni[1];
-      api.velocity.set(0, -yAxis * 2, 0);
+      // api.velocity.set(0, -yAxis * 2, 0);
     },
   }));
 
