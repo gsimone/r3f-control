@@ -1,8 +1,8 @@
 import * as THREE from 'three'
 import React, { useEffect, useMemo, useRef } from "react";
-import { Extrude, OrbitControls } from "drei";
+import { Extrude, OrbitControls, PerspectiveCamera } from "drei";
 
-import { useFrame } from "react-three-fiber";
+import { useFrame, useThree } from "react-three-fiber";
 import Lights from "./lights";
 import { useControl } from 'react-three-gui';
 
@@ -144,6 +144,15 @@ function Scene() {
   const [launching, setLaunching] = React.useState(false)
   
   const orbitControls = useControl("Orbit Controls", {type: "boolean"})
+  const {camera} = useThree() 
+
+  useFrame(({ mouse }) => {
+
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mouse.x / 10, 0.06) 
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mouse.y / 10, 0.05) 
+
+  })
+
   return (
     <>
       <Lights />
