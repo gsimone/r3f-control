@@ -24,7 +24,7 @@ function Floater({ position, rotation, ...props }) {
 
   const [ref, api] = useBox(() => ({
     mass: 1,
-    size: [0.5, 1, 0.5],
+    size: [0.5 / 2, 1 / 2, 0.5 / 2],
     position,
     rotation,
     onCollide: (e) => {
