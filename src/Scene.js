@@ -71,8 +71,6 @@ function Floater(props) {
     $ref.current.position.y += Math.sin(randomDelay + clock.getElapsedTime()/2) / 400
   })
 
-  const envMap = useCubeTextureLoader(['px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png'], { path: '/cube/' })
-  
   const [spring, set] = useSpring(() => ({
     loop: true,
     position: props.position,
@@ -101,7 +99,7 @@ function Floater(props) {
       onPointerDown={props.handleClick}
     >
       <boxBufferGeometry args={[.5, 1, .5]} />
-      <meshStandardMaterial color="#333" reflectivity={1} roughness={0.7} envMap={envMap} />
+      <meshStandardMaterial color="#333" reflectivity={1} roughness={0.7}  />
     </a.mesh>
   )
 }
