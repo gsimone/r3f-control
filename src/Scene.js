@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import React, { useEffect, useMemo, useRef } from "react";
-import { Extrude, useCubeTextureLoader, OrbitControls } from "drei";
+import { Extrude, OrbitControls } from "drei";
 
 import { useFrame } from "react-three-fiber";
 import Lights from "./lights";

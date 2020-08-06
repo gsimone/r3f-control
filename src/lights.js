@@ -1,14 +1,10 @@
 import React, { useRef } from 'react'
-import { useHelper } from 'drei'
-import { SpotLightHelper } from 'three'
 import { useControl } from 'react-three-gui'
 
 function Lights() {
 
     const $dirLight = useRef()
     const $backLight = useRef()
-
-    // useHelper($backLight, SpotLightHelper)
 
     const color = useControl('lights color', { type: "color", value: "#ff0000"})
 

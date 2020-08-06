@@ -6,7 +6,7 @@ import {
   Vignette,
   HueSaturation
 } from "react-postprocessing";
-import { useFrame, useResource, useThree } from 'react-three-fiber'
+import { useResource, useThree } from 'react-three-fiber'
  
 import { GodRaysEffect, KernelSize, BlendFunction } from 'postprocessing'
 
