@@ -1649,10 +1649,10 @@
     lodash "^4.17.15"
     redent "^3.0.0"
 
-"@testing-library/react@^10.4.7":
-  version "10.4.7"
-  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.7.tgz#fc14847fb70a5e93576b8f7f0d1490ead02a9061"
-  integrity sha512-hUYbum3X2f1ZKusKfPaooKNYqE/GtPiQ+D2HJaJ4pkxeNJQFVUEvAvEh9+3QuLdBeTWkDMNY5NSijc5+pGdM4Q==
+"@testing-library/react@^10.4.8":
+  version "10.4.8"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-10.4.8.tgz#5eb730291b8fd81cdb2d8877770d060b044ae4a4"
+  integrity sha512-clgpFR6QHiRRcdhFfAKDhH8UXpNASyfkkANhtCsCVBnai+O+mK1rGtMES+Apc7ql5Wyxu7j8dcLiC4pV5VblHA==
   dependencies:
     "@babel/runtime" "^7.10.3"
     "@testing-library/dom" "^7.17.1"
@@ -4109,10 +4109,10 @@ dotenv@8.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
-drei@^0.0.70:
-  version "0.0.70"
-  resolved "https://registry.yarnpkg.com/drei/-/drei-0.0.70.tgz#a387696380e2fa4aa044ddaf3dcd22561cef1fd4"
-  integrity sha512-xFFn8wRoyz0LxxaBha/VfBnnCkHLH/J9Q0mKrL5MWJpGsZ0ZXnhkKFo8cGHre5XX3oaS6/EPTumqkN2vtSXkAA==
+drei@^0.0.71:
+  version "0.0.71"
+  resolved "https://registry.yarnpkg.com/drei/-/drei-0.0.71.tgz#6f481c0562f84c35b4fea4537dea66a49a278c49"
+  integrity sha512-7Ea+kPfdeRaawLYfcjqzCjXxFYyuHlb/vjh0h04c2+E+oZhJixHNlx95hqgZ/O8ZO+7IhxrPkkiys3FMfRG6NQ==
   dependencies:
     "@babel/runtime" "^7.10.5"
     glsl-noise "^0.0.0"
@@ -9335,10 +9335,10 @@ react-merge-refs@^1.1.0:
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
 
-react-postprocessing@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/react-postprocessing/-/react-postprocessing-1.1.3.tgz#6ba95b34a46a737215797b12d2483089546f7d6e"
-  integrity sha512-QMsCwW/KaMbKnkOQvoStNIG0FgkwEEFUw1mB2rBNgeDkdmPnGljeBgaY3G6+u3VcvexVR0ou0Drzqx8YX7rkmA==
+react-postprocessing@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-postprocessing/-/react-postprocessing-1.1.4.tgz#a8ce7f43f58be4570c1ec52397a5462aad1c0397"
+  integrity sha512-LQd5i3FPDahho6fIH3m3TPDsQ43+owynmTEt9QWorRoIlRw35cV87VLrKKyEUS5hispeOzhxW2WshJs6ttE7IQ==
   dependencies:
     react-merge-refs "^1.1.0"
 

@@ -18,7 +18,6 @@ function App() {
           background: "#121212",
         }}
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
-        concurrent
       >
 
         {showControls && <Stats />}

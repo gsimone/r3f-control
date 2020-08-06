@@ -4,12 +4,11 @@ import {
   EffectComposer,
   Noise,
   Vignette,
-  HueSaturation
+  HueSaturation,
 } from "react-postprocessing";
 import { useResource, useThree } from 'react-three-fiber'
  
 import { GodRaysEffect, KernelSize, BlendFunction } from 'postprocessing'
-
 
 import { Circle } from 'drei';
 import { useControl } from 'react-three-gui';
@@ -62,7 +61,7 @@ function Effects() {
     <Suspense fallback={null}>
       <Sun ref={$sun} />
 
-      {sun && <EffectComposer>
+      {sun && <EffectComposer multisampling={false}>
         <GodRays sun={$sun} />
        
         <Noise
