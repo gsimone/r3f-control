@@ -18,13 +18,12 @@ function App() {
           background: "#121212",
         }}
         gl={{ powerPreference: 'high-performance', alpha: false, antialias: false, stencil: false, depth: false }}
-        concurrent
       >
 
         {showControls && <Stats />}
         
+        <Effects />
         <Suspense fallback={<Html center><span className="loading">Loading.</span></Html>}>
-          <Effects />
           <Scene />
           <Html center>
             <div className="title">
