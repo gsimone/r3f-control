@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import React, { useEffect, useMemo, useRef } from "react";
-import { Extrude, OrbitControls, PerspectiveCamera } from "drei";
+import { Extrude, OrbitControls } from "drei";
 
 import { useFrame, useThree } from "react-three-fiber";
 import Lights from "./lights";
@@ -139,38 +139,52 @@ function Frames() {
 
 }
 
+function Floaters() {
+  const [launching, setLaunching] = React.useState(false)
+
+  const group = useRef()
+  
+  useFrame(({ mouse }) => {
+    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, mouse.x / 10, 0.06) 
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, -mouse.y / 16, 0.05) 
+  })
+
+  const floaters = useMemo(() => {
+
+    return [
+       { scale: [.3,.3,.3],  position: [1.2, -1, -3], rotation: [2, .3, .5] },
+       { scale: [.3,.3,.3],  position: [-1, 1, -4], rotation: [2, .3, .5] },
+       { scale: [0.6, 0.6, 0.6],  position: [.8, 0, -6], rotation: [.5, .3, .5] },
+       { position: [-1.5, .1, -6], rotation: [-2, 3, 1] },
+       { position: [0, 1, -2], rotation: [-2, 3, 1] },
+       { position: [0, -1, -4], rotation: [-2, 3, 1] },
+       { position: [1, 0, 0], rotation: [1, 4, 1] },
+       { position: [-1.2, 0, 1], rotation: [1, 4, 1] }
+    ]
+
+  }, [])
+
+  return  (<group>
+    {floaters.map(
+      (floater, i) => <Floater onClick={() => setLaunching(i)} isLaunching={launching === i} {...floater} />
+    )}
+  </group>
+)
+}
+
 
 function Scene() {
-  const [launching, setLaunching] = React.useState(false)
   
   const orbitControls = useControl("Orbit Controls", {type: "boolean"})
 
-  const floaters = useRef()
   
-  const {camera} = useThree() 
-
-  useFrame(({ mouse }) => {
-
-    floaters.current.position.x = THREE.MathUtils.lerp(floaters.current.position.x, mouse.x / 10, 0.06) 
-    floaters.current.position.y = THREE.MathUtils.lerp(floaters.current.position.y, -mouse.y / 16, 0.05) 
-
-  })
 
   return (
     <>
       <Lights />
 
       <Frames />
-      <group ref={floaters}>
-          <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[1.2, -1, -3]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
-          <Floater onClick={() => setLaunching(0)} isLaunching={launching === 0} scale={[.3,.3,.3]}  position={[-1, 1, -4]}  args={[1, 2, 1]} rotation={[2, .3, .5]} />
-          <Floater onClick={() => setLaunching(1)} isLaunching={launching === 1} scale={[0.6, 0.6, 0.6]}  position={[.8, 0, -6]}  args={[1, 2, 1]} rotation={[.5, .3, .5]} />
-          <Floater onClick={() => setLaunching(2)} isLaunching={launching === 2} position={[-1.5, .1, -6]} rotation={[-2, 3, 1]} />
-          <Floater onClick={() => setLaunching(3)} isLaunching={launching === 3} position={[0, 1, -2]} rotation={[-2, 3, 1]} />
-          <Floater onClick={() => setLaunching(4)} isLaunching={launching === 4} position={[0, -1, -4]} rotation={[-2, 3, 1]} />
-          <Floater onClick={() => setLaunching(5)} isLaunching={launching === 5} position={[1, 0, 0]} rotation={[1, 4, 1]} />
-          <Floater onClick={() => setLaunching(6)} isLaunching={launching === 6} position={[-1.2, 0, 1]} rotation={[1, 4, 1]} />
-      </group>
+      <Floaters />
       
       {orbitControls && <OrbitControls />}
     </>
