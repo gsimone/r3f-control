@@ -177,7 +177,7 @@ function Floaters() {
   }, []);
 
   return (
-    <group>
+    <group ref={group}>
       {floaters.map((floater, i) => (
         <Floater
           onClick={() => setLaunching(i)}
