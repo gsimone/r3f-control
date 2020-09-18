@@ -76,7 +76,7 @@ function Effects() {
       <Sun ref={$sun} />
 
       {sun && (
-        <EffectComposer multisampling={false}>
+        <EffectComposer>
           <GodRays sun={$sun} />
 
           <Noise
